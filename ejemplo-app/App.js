@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, SectionList } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, Button, ScrollView, SectionList, TouchableOpacity } from 'react-native';
 
 const DATA = [
   {
@@ -37,35 +37,48 @@ const DATA2 = [
 ];
 
 export default function App() {
+  const [count, setCount] = useState(0); 
+  const handlePress = () => setCount (count+ 1); 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Text style={styles.text}>¡Hola Mica!</Text>
+        <Text style={styles.text}>¡Hola!</Text>
         <View style={styles.buttonContainer}>
-          <Button title="Presionar" onPress={() => console.log("¡Botón presionado!")} color="#ffffff" />
+          <TouchableOpacity onPress={() => console.log("¡Botón presionado!")} >
+          <Text>Presionar</Text>
+            </TouchableOpacity>
+            
         </View>
+        <Text> {'\n'}{'\n'}</Text>
 
         {DATA.map(button => (
           <View style={styles.buttonContainer2} key={button.id}>
-            <Button onPress={() => console.log("¡Botón de Data presionado!")} title={button.title} color="#ffffff" />
+            <TouchableOpacity onPress= { () => console.log("HOLAA!")} >
+            <Text>{button.title} </Text>
+            </TouchableOpacity> 
+
+           
           </View>
+          
         ))}
-   
-        <SectionList
-          sections={DATA2}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({item}) => (
-            <View style={styles.item}>
-              <Text style={styles.title}>{item}</Text>
-            </View>
-          )}
-          renderSectionHeader={({section: {title}}) => (
-            <Text style={styles.header}>{title}</Text>
-          )}
-        />
-      
+
         <StatusBar style="auto" />
-      </ScrollView>
+        <Text> {'\n'}{'\n'}</Text>
+      <SectionList
+        sections={DATA2}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({item}) => (
+          <View style={styles.item}>
+            
+            <Text style={styles.title}>{item}</Text>
+          </View>
+        )}
+        renderSectionHeader={({section: {title}}) => (
+          <Text style={styles.header}>{title}</Text>
+        )}
+      />
+       </ScrollView>
+
     </View>
   );
 }
@@ -91,10 +104,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 50,
     marginTop: 50,
+    alignItems: 'center',
   },
   item: {
     marginTop: 20,
-
     backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 8,
@@ -105,17 +118,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: 20,
+    alignItems: 'center',
   },
   scrollView: {
     marginTop: 20,
   },
   title: {
-    
-    color: 'black', 
+    color: 'black',
     fontSize: 20,
   },
   header: {
-    color: 'white', 
+    color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
     backgroundColor: '#f9c2ff',
